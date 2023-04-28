@@ -10,8 +10,6 @@ pool:
   vmImage: 'ubuntu-22.04'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
@@ -36,20 +34,15 @@ steps:
   displayName: 'Write build info'
   workingDirectory: Tailspin.SpaceGame.Web/wwwroot
 
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'Restore project dependencies'
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
+    command: 'restore'
+    projects: '**/*.csproj'
+  
+- task:
+  displayName: 'Build the project - Release'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    arguments: '--no-restore --configuration Release'
+    projects: '**/*.csproj'
