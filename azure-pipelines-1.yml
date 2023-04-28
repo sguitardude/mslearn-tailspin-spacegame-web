@@ -37,11 +37,11 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
-- template: Tailspin.SpaceGame.Web/templates/build.yaml
+- template: build.yaml
   parameters:
     buildConfiguration: 'Debug'
 
-- template: Tailspin.SpaceGame.Web/templates/build.yaml
+- template: build.yaml
   parameters:
     buildConfiguration: 'Debug'
 
