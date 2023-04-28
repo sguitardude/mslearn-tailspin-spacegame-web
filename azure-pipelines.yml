@@ -40,7 +40,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
   
-- task:
+- task: DotNetCoreCLI@2
   displayName: 'Build the project - Release'
   inputs:
     command: 'build'
