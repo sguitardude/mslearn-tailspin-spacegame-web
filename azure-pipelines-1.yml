@@ -11,6 +11,10 @@ variables:
   myString: 'This is my string'  
 
 steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: Write-Host "dotnetSdkVersion:$(dotnetSdkVersion)"
 - task: UseDotNet@2
   displayName: 'Use .NET SDK $(dotnetSdkVersion)'
   inputs:
