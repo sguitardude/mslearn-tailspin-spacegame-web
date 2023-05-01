@@ -45,9 +45,12 @@ steps:
   parameters:
     buildConfiguration: 'Debug'
 
-- template: build.yaml
-  parameters:
-    buildConfiguration: 'Debug'
+- task: DotNetCoreCLI@2
+  displayName: Create SQL Scripts
+  inputs:
+   command: custom
+   custom: 'ef '
+   arguments: migrations script --output $(Build.ArtifactStagingDirectory)\AspNetCoreGitPipelineTest.sql --project D:\a\1\s\AspNetCoreGitPipelineTest\AspNetCoreGitPipelineTest.csproj
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
